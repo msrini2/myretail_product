@@ -1,0 +1,1 @@
+This folder is for CH4 specific production batch properties

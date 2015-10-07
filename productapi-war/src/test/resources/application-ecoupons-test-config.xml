@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:component-scan base-package="com.myretail.product.util" />
+	<context:component-scan base-package="com.myretail.product.ecoupon" />
+	<context:component-scan base-package="com.myretail.product.service"/>
+	<context:component-scan base-package="com.myretail.product.dao"/>
+	<context:component-scan base-package="com.myretail.product.ticlient"/>
+	<context:component-scan base-package="com.myretail.product.manager"/>
+	<context:component-scan base-package="com.myretail.product.service.util"/>
+	<context:component-scan base-package="com.myretail.product.dao.util"/>
+	<context:component-scan base-package="com.myretail.product.cso"/>
+	<context:component-scan base-package="com.myretail.product.channel"/>
+	 <context:component-scan base-package="com.myretail.product.restapi.response"/>
+	<bean id="applicationConfig" class="com.myretail.product.util.AppConfig"
+		lazy-init="false">
+		<constructor-arg index="0" ref="appConfig" />
+	</bean>
+	<bean id="appConfig"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:application-default.properties</value>
+				<value>classpath:application.properties</value>
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="true" />
+	</bean>
+
+	<bean id="dynaConfig"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:dynamic-default.properties</value>
+				<value>classpath:dynamic.properties</value>
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="true" />
+	</bean>
+
+	<bean id="dynamicConfig" class="com.myretail.product.util.AppConfig"
+		lazy-init="false">
+		<constructor-arg index="0" ref="dynaConfig" />
+	</bean>
+		
+	<bean id="mcacheConfig"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:memcached-offer-default.properties</value>
+				<value>classpath:memcached-offer.properties</value>
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="true" />
+	</bean>	
+	<bean id="memcachedConfig" class="com.myretail.product.util.AppConfig"
+		lazy-init="false">
+		<constructor-arg index="0" ref="mcacheConfig" />
+	</bean>
+
+	<import resource="applicationContext-hibernate-test.xml" />
+</beans>

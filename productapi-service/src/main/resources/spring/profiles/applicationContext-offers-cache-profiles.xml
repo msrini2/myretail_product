@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- *************************************************************************************
+		LOCAL profile group
+		************************************************************************************* -->
+
+	<beans profile="local,batchLocal,ecouponPromoLocal">
+		<bean id="offersCacheHostnames" class="java.lang.String">
+			<constructor-arg value="localhost:11211" />
+		</bean>
+		<bean id="offersCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+		<bean id="m2uCacheHostnames" class="java.lang.String">
+			<constructor-arg value="localhost:11211" />
+		</bean>
+		<bean id="m2uCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+	</beans>
+
+	<!-- *************************************************************************************
+		INTEG profile group
+		************************************************************************************* -->
+
+	<beans profile="integ,integx,ecouponInteg,ecouponPromoInteg">
+		<bean id="offersCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp310p.dev.ch3.s.com:11213" />
+		</bean>
+		<bean id="offersCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="true" />
+		</bean>
+		<bean id="m2uCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp310p.dev.ch3.s.com:11213" />
+		</bean>
+		<bean id="m2uCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+	</beans>
+
+	<!-- *************************************************************************************
+		QA profile group
+		************************************************************************************* -->
+
+	<beans profile="qa,ecouponQa,batchQa,ecouponPromoQa">
+		<bean id="offersCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp316p.qa.ch3.s.com:11213" />
+		</bean>
+		<bean id="offersCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+		<bean id="m2uCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp316p.qa.ch3.s.com:11213" />
+		</bean>
+		<bean id="m2uCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+	</beans>
+
+	<!-- *************************************************************************************
+		PROD profile group (excludes stress)
+		************************************************************************************* -->
+
+	<beans profile="stage,prod,ecouponProd,batchProd,ecouponPromoProd">
+		<bean id="offersCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp303p.prod.ch3.s.com:11211" />
+		</bean>
+		<bean id="offersCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+		<bean id="m2uCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp303p.prod.ch3.s.com:11211" />
+		</bean>
+		<bean id="m2uCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+	</beans>
+
+	<!-- *************************************************************************************
+		STRESS profile group
+		************************************************************************************* -->
+
+	<beans profile="stressProd,ecouponPromoStress">
+		<bean id="offersCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp307p.prod.ch3.s.com:11211" />
+		</bean>
+		<bean id="offersCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+		<bean id="m2uCacheHostnames" class="java.lang.String">
+			<constructor-arg value="sywrapp307p.prod.ch3.s.com:11211" />
+		</bean>
+		<bean id="m2uCacheFlushOnConnect" class="java.lang.Boolean">
+			<constructor-arg value="false" />
+		</bean>
+	</beans>
+
+</beans>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Importing specific must-have dependencies -->
+	<import resource="classpath:spring/applicationContext-core.xml" />
+	<import resource="classpath:spring/applicationContext-ecoupon-dao.xml" />
+	<import resource="classpath:spring/applicationContext-service.xml" />
+	<import resource="classpath:spring/applicationContext-offers.xml" />
+	<!--
+	<import resource="classpath:spring/build/applicationContext-ext-client.xml" />
+	-->
+
+	<!-- Test specific import -->
+	<import resource="/applicationContext-dao-test.xml" />
+	
+	<context:component-scan base-package="com.myretail.product.core" />
+	<context:component-scan base-package="com.myretail.product.util" />
+	<context:component-scan base-package="com.myretail.product.ticlient" />
+	<context:component-scan base-package="com.myretail.product.restapi" />
+	<context:component-scan base-package="com.myretail.product.restutil" />
+	<context:component-scan base-package="com.myretail.product.service" />
+	<context:component-scan base-package="com.myretail.product.context" />
+	<context:component-scan base-package="com.myretail.product.dao" />
+	<context:component-scan base-package="com.myretail.product.manager" />
+	<context:component-scan base-package="com.myretail.product.repo" />
+	<context:component-scan base-package="com.myretail.product.scheduler" />
+	<context:component-scan base-package="com.myretail.product.cso" />
+	<context:component-scan base-package="com.myretail.product.ecoupon" />
+	<context:component-scan base-package="com.myretail.product.loyalityclient" />
+	<context:component-scan base-package="com.myretail.product.mfgcoupon" />
+	<context:component-scan base-package="com.myretail.product.filter" />
+	<context:component-scan base-package="com.myretail.product.task" />
+	<context:component-scan base-package="com.myretail.product.jmx" />
+	<context:component-scan base-package="com.myretail.product.monitor" />
+	<context:component-scan base-package="com.myretail.product.tellurideclient" />
+	<context:component-scan base-package="com.myretail.product.web.context" />
+	<context:component-scan base-package="com.myretail.product.controller" />
+	<context:component-scan base-package="com.myretail.product.config" />
+	<context:component-scan base-package="com.myretail.product.thread" />
+	
+	<!-- AOP Config for Logging and Exception handling -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!--
+	<context:load-time-weaver />
+	-->
+
+	<bean id="applicationConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:application-default.properties</value>
+						<value>classpath:application.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<bean id="buildConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:build.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<bean id="dynamicConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:dynamic-default.properties</value>
+						<value>classpath:dynamic.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<bean id="memcachedConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:memcached-offer-default.properties</value>
+						<value>classpath:memcached-offer.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<bean id="tiMetadataMapperConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:metadata-mapper.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<bean id="clientConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:client-config.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<!-- Configuring property file for batch -->
+	<bean id="eCouponBatchConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:ecoupon-batch-default.properties</value>
+						<value>classpath:ecoupon-batch.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<!-- JMX MBeanServer: stand alone mbeanServer for test -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean" />
+
+	<bean id="eCouponMemcachedConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:memcached-ecoupon-default.properties</value>
+						<value>classpath:memcached-ecoupon.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<bean id="tellurideMetadataMapperConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:telluride-metadata-mapper.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+</beans>

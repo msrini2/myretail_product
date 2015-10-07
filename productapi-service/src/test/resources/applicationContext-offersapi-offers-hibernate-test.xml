@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="dbValues"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:database-mysql.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="offersApiDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${DB_URL}" />
+		<property name="username" value="${DB_USER_NAME}" />
+		<property name="password" value="${DB_USER_PASSWORD}" />
+	</bean>
+
+	<bean id="offersApiSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="offersApiDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.myretail.product.model.OfferMetadata</value>
+				<value>com.myretail.product.model.OfferMetadataStage</value>
+				<value>com.myretail.product.model.OfferRedemptionChannel</value>
+				<value>com.myretail.product.model.EcouponTransaction</value>
+				<value>com.myretail.product.model.Ecoupon</value>
+				<value>com.myretail.product.model.UserPref</value>
+				<value>com.myretail.product.model.RequestRef</value>
+				<value>com.myretail.product.model.CsoMessageHeader</value>
+				<value>com.myretail.product.model.CsoMessageCoupon</value>
+				<value>com.myretail.product.model.promo.ProductCoupons</value>
+				<value>com.myretail.product.model.promo.ProdCouponsRel</value>
+				<value>com.myretail.product.model.promo.ProductCouponsLog</value>
+				<value>com.myretail.product.model.ecoupon.Rule</value>
+				<value>com.myretail.product.model.ecoupon.RuleMetaData</value>
+				<value>com.myretail.product.model.ecoupon.AvailableStore</value>
+				<value>com.myretail.product.model.ecoupon.PromoRules</value>
+				<value>com.myretail.product.model.ecoupon.PromoRuleDataRel</value>
+				<value>com.myretail.product.model.ecoupon.PromoData</value>
+				<value>com.myretail.product.model.ecoupon.PromoDeal</value>
+				<value>com.myretail.product.model.ecoupon.PromoDealDataRel</value>
+				<value>com.myretail.product.model.promo.ProdCouponsExtRel</value>
+			</list>
+		</property>
+		<property name="annotatedPackages">
+			<list>
+				<value>com.myretail.product.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- prop key="hibernate.connection.autocommit">false</prop> -->
+				<!-- Need to test this new property -->
+				<prop key="hibernate.id.new_generator_mappings">true</prop>
+				<!-- === test property end === -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.jdbc.batch_size">100</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.connection.zeroDateTimeBehavior">convertToNull</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="offersApiTransactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="offersApiSessionFactory" />
+		<property name="dataSource" ref="offersApiDataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="offersApiTransactionManager"
+		proxy-target-class="true" />
+
+</beans>

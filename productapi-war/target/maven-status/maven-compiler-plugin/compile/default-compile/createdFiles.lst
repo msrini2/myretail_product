@@ -1,0 +1,3 @@
+com\myretail\product\web\exception\ProductWebException.class
+com\myretail\product\restapi\ProductApi.class
+com\myretail\product\web\exception\ProductWebException$CustomStatusType.class

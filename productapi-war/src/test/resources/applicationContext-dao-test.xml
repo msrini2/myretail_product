@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<import resource="/applicationContext-hibernate-test.xml" />
+	<import resource="classpath:spring/applicationContext-dao-cache.xml" />
+	<import resource="classpath:spring/sql/applicationContext-generic.xml" />
+	<import resource="classpath:spring/sql/applicationContext-pdp.xml" />
+	<import resource="classpath:spring/sql/applicationContext-offer.xml" />
+	<import resource="classpath:spring/sql/applicationContext-telluride.xml" />
+	<import resource="classpath:spring/sql/applicationContext-config.xml" />
+	<import resource="classpath:spring/sql/applicationContext-offer-metadata-attribute.xml" />
+	<import resource="classpath:spring/sql/applicationContext-user.xml" />
+	<import resource="classpath:spring/sql/applicationContext-offer-metadata.xml" />
+		
+	<!-- DB configuration for unit tests -->	
+	<bean id="dbValues"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc-local.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="offersApiDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${local.offers.api.url}${local.offers.api.dbname}" />
+		<property name="username" value="${local.offers.api.user}" />
+		<property name="password" value="${local.offers.api.password}" />
+	</bean>
+	
+	<bean id="jdbcUtilCommons" class="com.sears.common.jdbc.impl.JdbcUtilImpl">
+		<property name="jdbcLogger" ref="jdbcLogger" />
+		<property name="jdbcTrace" value="true" />
+	</bean>
+
+	<bean id="jdbcDaoCommons" class="com.sears.common.jdbc.dao.impl.JdbcDaoImpl">
+		<property name="dataSource" ref="offersApiDataSource" />
+		<property name="jdbcUtil" ref="jdbcUtilCommons" />
+		<property name="jdbcLogger" ref="jdbcLogger" />
+		<property name="jdbcTrace" value="true" />
+	</bean>
+	
+	<bean id="jdbcConfig" class="com.sears.common.util.impl.AppConfigImpl" lazy-init="false">
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="locations">
+					<list>
+						<value>classpath:jdbc.properties</value>
+		
+						<!-- Following file should exist in local JBoss' ./conf directory, not in
+							SVN
+							Content of this file may include JDBC properties for only 2 databases
+							(change offers API parameters for your local database if necessary):
+		
+							local.offers.api.url = jdbc:mysql://localhost:3306/
+							local.offers.api.dbname = offers_service_qa
+							local.offers.api.user = root
+							local.offers.api.password = root
+		
+							local.offer.repo.url = jdbc:mysql://offerrepdbvip-dv.intra.searshc.com:3372/
+							local.offer.repo.dbname = offerdb
+							local.offer.repo.user = unica
+							local.offer.repo.password = UniCa1
+						-->
+						<value>classpath:jdbc-local.properties</value>
+					</list>
+				</property>
+				<property name="ignoreResourceNotFound" value="true" />
+			</bean>
+		</constructor-arg>
+		<property name="strUtil" ref="strUtilCommons" />
+		<property name="booleanParser" ref="booleanParserCommons" />
+		<property name="logger" ref="logger" />
+	</bean>
+
+	<!-- JDBC Logger based on sears-common-core, prints to separate file based on loggerNamespace -->
+	<bean id="jdbcLogger" class="com.sears.common.log.LoggerServiceLocator" lazy-init="false" factory-method="locateLoggerService">
+		<constructor-arg value="jdbcLogger"/>
+		<property name="useRef" value="true" />
+		<property name="flowContext" ref="flowContextCommons" />
+		<property name="loggerNamespace" value="com.myretail.product.jdbc" />
+		<property name="logPackageDepth" value="1" />
+	</bean>
+
+
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="productapi-war">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/lib" source-path="/target/productapi/WEB-INF/lib"/>
+        <dependent-module archiveName="productapi-core-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/productapi-core/productapi-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="productapi-dao-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/productapi-dao/productapi-dao">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="productapi-service-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/productapi-service/productapi-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="productapi"/>
+        <property name="java-output-path" value="/productapi/target/classes"/>
+    </wb-module>
+</project-modules>

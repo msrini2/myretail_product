@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Build Profiles guideline:
+		Total 3 build profiles exist: main, batch, promo
+		main: basic profile that adds all required projects (except batch and promo projects)
+		batch: profile that adds batch project in addition to main
+		promo: profile that adds promo project in addition to main
+		batch and promo profiles are mutually exclusive (cannot co-exist in the same build)
+
+		Build profile dependencies are declared within respective projects only: batch or promo
+		To link either build or promo build dependencies one needs to import either
+		spring/build/applicationContext-batch.xml
+		or
+		spring/build/applicationContext-promo.xml
+		Any inner dependencies must be declared in some place that is being imported from either of these two configurations
+		This said this particular file already imports one of the two configurations and this file needs not to be updated
+		unless there is need to have changes in build profiles structure
+	-->
+
+	<!-- *************************************************************************************
+		Following is configuration for Maven Build specific profiles. Only specific
+		beans are necessary, usually only imports are in this section
+		************************************************************************************* -->
+
+	<!-- ****************** BATCH specific ***************************************** -->
+
+</beans>

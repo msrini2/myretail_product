@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classloading xmlns="urn:jboss:classloading:1.0"
+			  name="productapi-war.war"
+			  domain="productapi"
+			  parent-domain="DefaultDomain"
+			  export-all="NON_EMPTY"
+			  import-all="true"
+			  parent-first="false"
+			  top-level-classloader="true" >
+			  <!-- for WAR ad EAR: keep in WEB-INF, for JAR keep in META-INF;
+			  http://phytodata.wordpress.com/2010/10/21/demystifying-the-jboss5-jboss-classloading-xml-file/ -->
+</classloading>

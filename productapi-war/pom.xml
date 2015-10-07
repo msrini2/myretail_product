@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>productapi</artifactId>
+		<groupId>com.myretail.product</groupId>
+		<version>1.0</version>
+	</parent>
+	<artifactId>productapi-war</artifactId>
+	<packaging>war</packaging>
+	<name>Productapi-war</name>
+
+	<!-- Dependencies definition section START, includes default dependencies
+		and profile dependencies -->
+	<dependencies>
+		<!-- Offers API Core -->
+		<dependency>
+			<groupId>com.myretail.product</groupId>
+			<artifactId>productapi-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- Offers API DAO -->
+		<dependency>
+			<groupId>com.myretail.product</groupId>
+			<artifactId>productapi-dao</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- Offers API Main -->
+		<dependency>
+			<groupId>com.myretail.product</groupId>
+			<artifactId>productapi-service</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- Other WAR Project specific -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>batch</id>
+			<activation>
+				<property>
+					<name>offers.profile</name>
+					<value>batch</value>
+				</property>
+			</activation>
+			<dependencies>
+				<!-- Offers API Batch -->
+				<dependency>
+					<groupId>com.myretail.product</groupId>
+					<artifactId>productapi-batch</artifactId>
+					<version>1.0</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>promo</id>
+			<activation>
+				<property>
+					<name>offers.profile</name>
+					<value>promo</value>
+				</property>
+			</activation>
+			<dependencies>
+				<!-- Offers API Promo -->
+				<dependency>
+					<groupId>com.myretail.product</groupId>
+					<artifactId>productapi-promo</artifactId>
+					<version>1.0</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+	<!-- Dependencies definition section END -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>false</downloadSources>
+					<wtpversion>1.5</wtpversion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<!-- set to "true" to generate JAR instead of producing bunch of class
+						files -->
+					<archiveClasses>true</archiveClasses>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14.1</version>
+				<configuration>
+					<parallel>methods</parallel>
+					<threadCount>1</threadCount><!-- 10 -->
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<finalName>productapi</finalName>
+	</build>
+</project>

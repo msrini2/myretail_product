@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+	<bean id="productApiSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="productApiDataSource" />
+		<property name="annotatedClasses">
+			<list>
+			<value>com.myretail.product.model.ProductDetails</value>
+			<value>com.myretail.product.model.ProductPrice</value>
+			</list>
+		</property>
+		<property name="annotatedPackages">
+			<list>
+				<value>com.myretail.product.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- prop key="hibernate.connection.autocommit">false</prop> -->
+				<!-- Need to test this new property -->
+				<prop key="hibernate.id.new_generator_mappings">true</prop>
+				<!-- === test property end === -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">100</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.connection.zeroDateTimeBehavior">convertToNull</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="productApiTransactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="productApiSessionFactory" />
+		<property name="dataSource" ref="productApiDataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="productApiTransactionManager"
+		proxy-target-class="true" />
+
+</beans>

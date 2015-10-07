@@ -1,0 +1,13 @@
+Guidelines to use spring bean definition files for Offers API, eCoupon API, etc:
+- Root application context is located in current folder (offersapi-war/src/main/resources/spring/applicationContext.xml)
+- Additional project-specific spring bean definitions (xml files) are located in respective projects in offersapi-*/src/main/resources/spring/ folder
+-- example: offersapi-dao/src/main/resources/spring/applicationContext-dao.xml
+- Additional context configurations are imported to applicationContext.xml using classpath
+-- example: <import resource="classpath:spring/applicationContext-dao.xml" />
+- Follow best practices to naming conventions for spring configuration files (applicationContext-something.xml)
+- If you have Spring Profile dependency, create Spring Profile specific files, each per Profile, place to offersapi-*/src/main/resources/spring/profiles/ folder
+-- example: offersapi-war/src/main/resources/spring/profiles/applicationContext-local.xml
+- If you have Maven Profile dependency (build dependency), create build specific files in respective projects in offersapi-*/src/main/resources/spring/build/ folder
+-- example: offersapi-batch/src/main/resources/spring/build/applicationContext-batch.xml
+- Always create unique name of any spring bean definition file across all projects and dependencies of Offers API, eCoupon API, OfferBatch API, etc
+- For more on Spring and Maven Profiles read offersapi/profiles.txt

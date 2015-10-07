@@ -1,0 +1,37 @@
+This file lists some old configs with non-default expiration
+
+cacheObject.106.className = .pseudo.rule.RuleId
+cacheObject.106.prepend = ruleId
+cacheObject.106.expiration = 7200
+
+cacheObject.107.className = .pseudo.rule.RuleData
+cacheObject.107.prepend = ruleData
+cacheObject.107.expiration = 7200
+
+cacheObject.108.className = .pseudo.metadata.sourceId
+cacheObject.108.prepend = metadataSourceId
+cacheObject.108.expiration = 86400
+
+cacheObject.304.className =.pseudo.ruleMetadata.RuleMetadata
+cacheObject.304.prepend = ruleMetadata
+cacheObject.304.expiration = 86400
+
+cacheObject.311.className = com.sears.offers.bo.telluride.response.TellurideProductResponse
+cacheObject.311.prepend = tellProdResponse
+cacheObject.311.expiration = 86400
+
+cacheObject.313.className = com.sears.offers.ecoupon.bo.ProductDetails
+cacheObject.313.prepend = productDetails
+cacheObject.313.expiration = 86400
+
+cacheObject.306.className = com.sears.offers.util.ProdCouponLogCache
+cacheObject.306.prepend = ProductCouponsLog
+cacheObject.306.expiration = 21600
+
+cacheObject.307.className = .pseudo.couponAttribute.active
+cacheObject.307.prepend = CouponAttribute
+cacheObject.307.expiration = 7200
+
+cacheObject.314.className = .pseudo.offer.BusOffer
+cacheObject.314.prepend = busOffer
+cacheObject.314.expiration = 600
