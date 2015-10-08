@@ -14,19 +14,19 @@
 	<!-- Dependencies definition section START, includes default dependencies
 		and profile dependencies -->
 	<dependencies>
-		<!-- Offers API Core -->
+		<!-- Product API Core -->
 		<dependency>
 			<groupId>com.myretail.product</groupId>
 			<artifactId>productapi-core</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<!-- Offers API DAO -->
+		<!-- Product API DAO -->
 		<dependency>
 			<groupId>com.myretail.product</groupId>
 			<artifactId>productapi-dao</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<!-- Offers API Main -->
+		<!-- Product API Main -->
 		<dependency>
 			<groupId>com.myretail.product</groupId>
 			<artifactId>productapi-service</artifactId>
@@ -39,43 +39,6 @@
 			<version>${spring.version}</version>
 		</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>batch</id>
-			<activation>
-				<property>
-					<name>offers.profile</name>
-					<value>batch</value>
-				</property>
-			</activation>
-			<dependencies>
-				<!-- Offers API Batch -->
-				<dependency>
-					<groupId>com.myretail.product</groupId>
-					<artifactId>productapi-batch</artifactId>
-					<version>1.0</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>promo</id>
-			<activation>
-				<property>
-					<name>offers.profile</name>
-					<value>promo</value>
-				</property>
-			</activation>
-			<dependencies>
-				<!-- Offers API Promo -->
-				<dependency>
-					<groupId>com.myretail.product</groupId>
-					<artifactId>productapi-promo</artifactId>
-					<version>1.0</version>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 	<!-- Dependencies definition section END -->
 
 	<build>

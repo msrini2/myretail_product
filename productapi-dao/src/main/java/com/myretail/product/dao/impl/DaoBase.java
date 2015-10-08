@@ -5,14 +5,23 @@ import java.util.Collection;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.myretail.product.bo.response.ErrorCode;
+import com.myretail.product.core.util.StrUtil;
 import com.myretail.product.dao.Dao;
 import com.myretail.product.exception.ProductException;
 
 
 public abstract class DaoBase implements Dao {
+	
+	//@Autowired
+	//private StrUtil strUtil;
 
 
+	//private static final Logger logger = LoggerFactory.getLogger(DaoBase.class);
 	/**
 	 * Returns session factory for current version of DAO.<br>
 	 * 

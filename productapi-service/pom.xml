@@ -12,13 +12,13 @@
 	<name>Productapi-product</name>
 
 	<dependencies>
-		<!-- Offers API Core -->
+		<!-- Product API Core -->
 		<dependency>
 			<groupId>com.myretail.product</groupId>
 			<artifactId>productapi-core</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<!-- Offers API DAO -->
+		<!-- Product API DAO -->
 		<dependency>
 			<groupId>com.myretail.product</groupId>
 			<artifactId>productapi-dao</artifactId>
@@ -39,7 +39,7 @@
 			</plugin>
 		</plugins>
 
-		<finalName>productapi-offers</finalName>
+		<finalName>productapi-service</finalName>
 	</build>
 
 </project>

@@ -29,17 +29,33 @@ public class ProductApi {
 	@Autowired
 	private ProductService utilityService;
 
+	/**
+	 * @param version
+	 * @param uriInfo
+	 * @param request
+	 * @param headers
+	 * @return
+	 * @description: Entry point for getting product details. Accepts productId as request parameter
+	 *               returns response with success:true if execution was successful and product details are found
+	 *               returns response with success: false otherwise
+	 */
 	@GET
 	@Path("/productdetails")
 	@Produces(MediaType.APPLICATION_JSON)
 	public BaseResponse productdetails(@PathParam("version") String version, @Context UriInfo uriInfo,
 			@Context Request request, @Context HttpHeaders headers)
 	{
-
 		return utilityService.getProductDetails(readQueryParams(uriInfo.getQueryParameters(true)));
 	}
 	
 	
+	
+	
+	/**
+	 * @param queryParams
+	 * @return
+	 * @description : Utility method to extract request parameters from UriInfo
+	 */
 	private Map<String, String> readQueryParams(MultivaluedMap<String, String> queryParams)
 	{
 		if (queryParams == null || queryParams.isEmpty()) return null;

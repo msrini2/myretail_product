@@ -1,10 +1,8 @@
 package com.myretail.product.service;
 
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.myretail.product.bo.response.ErrorCode;
 import com.myretail.product.bo.response.ProductDetailResponse;
 import com.myretail.product.dao.ProductDao;
@@ -19,6 +17,11 @@ public class ProductService {
 	@Autowired
 	private ProductDao productDao;
 
+	/**
+	 * @param params
+	 * @return
+	 * @description: Contains business logic for getting product details based on productId
+	 */
 	public ProductDetailResponse getProductDetails(Map<String, String> params)
 	{
 		
@@ -46,5 +49,6 @@ public class ProductService {
 		
 		return productDetail;
 	}
+
 
 }

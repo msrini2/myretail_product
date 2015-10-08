@@ -13,7 +13,7 @@
 
 	<dependencies>
 	
-		<!-- Offers API Core -->
+		<!-- Product API Core -->
 		<dependency>
 			<groupId>com.myretail.product</groupId>
 			<artifactId>productapi-core</artifactId>
